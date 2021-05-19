@@ -2,7 +2,7 @@ import os
 class Video_Processor(object):
     def __init__(self, size=112, nomask=True, grey=False, quiet=True,
                  tracked_vid=False, noface_save=False,
-                 OpenFace_exe = 'OpenFace/build/bin/FeatureExtraction'):
+                 OpenFace_exe = "../OpenFaceGit/x64/Release/FeatureExtraction"):
         ''' Video Processor using OpenFace to do face detection and face alignment
         Given an input video, this processor will create a directory where all cropped and aligned 
         faces are saved.
@@ -66,8 +66,11 @@ class Video_Processor(object):
             	return
         else:
             raise ValueError("output_dir should be string object.")
-        opface_option = " {} ".format(arg_input)+input_video + " -out_dir "+ output_dir +" -simsize "+ str(self.size)
+        # opface_option = " {} ".format(arg_input)+input_video + " -out_dir "+ output_dir +" -simsize "+ str(self.size)
+        opface_option = " {} " + "-device 0" + " -out_dir "+ output_dir +" -simsize "+ str(self.size)
+
         opface_option += " -2Dfp -3Dfp -pdmparams -pose -aus -gaze -simalign "
+        print(opface_option)
 
         if not self.noface_save:
             opface_option +=" -nobadaligned "

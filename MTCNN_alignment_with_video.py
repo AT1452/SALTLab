@@ -172,7 +172,7 @@ def parse_video_frames():
     size = args.size
     save_fl = args.save_fl
     quiet_mode = args.quiet
-    video_input_paths, video_output_dirs = video_reader(input_dir, output_dir)
+    video_input_paths, video_output_dirs = video_reader(input_dir, output_dir) #not needed if using webcam
     length = len(video_input_paths)
     video_index= 0
     total_frames = 0
@@ -187,11 +187,13 @@ def parse_video_frames():
             else:
                 if len(os.listdir(video_output_dir))!=0:
                     continue
-            cap = cv2.VideoCapture(video_input_file)
+            cap = cv2.VideoCapture(0)
             index = 0
-            total_frames += int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+            total_frames += int(cap.get(cv2.CAP_PROP_FRAME_COUNT)) #not needed if using webcam
 
             while cap.isOpened():
+                if cv2.waitKey(1) & 0xFF == ord('q'):
+                    break
                 ret, frame = cap.read()
                 index+=1
                 if ret==True:

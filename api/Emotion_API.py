@@ -1,5 +1,7 @@
 import cv2
 import os
+from os import listdir
+from os.path import isdir, join
 import torch
 from video_processor import Video_Processor
 from tqdm import tqdm
@@ -19,7 +21,7 @@ class Emotion_API(object):
         device = None,
         use_temporal = False, # Use CNN model by default
         num_students = 1, # Use only 1 student model. One can use at most five student models, which can cause more computation cost.
-        OpenFace_exe = './OpenFace/build/bin/FeatureExtraction',
+        OpenFace_exe = '../OpenFaceGit/x64/Release/FeatureExtraction.exe',
         # parameters for OpenFace feature extraction, passed to Video_Processor
         save_size=112, nomask=True, grey=False, quiet=True,
         tracked_vid=False, noface_save=False,
@@ -51,26 +53,37 @@ class Emotion_API(object):
         self.save_csv = save_csv
         self.emotion_annotated_video = emotion_annotated_video
     def run(self, video_file , csv_output = None):
-        video_cap = cv2.VideoCapture(video_file)
+        video_cap = cv2.VideoCapture(0)
         video_name = os.path.basename(video_file).split('.')[0]
         # first input video is processed using OpenFace
-        opface_output_dir = os.path.join(os.path.dirname(video_file), 
-                video_name+"_opface")
+        # opface_output_dir = os.path.join(os.path.dirname(video_file), 
+        #         video_name+"_opface")
+        opface_output_dir = os.path.join(os.path.dirname(video_file), "webcam_opface")
         if not os.path.exists(opface_output_dir):
             self.video_processor.process(video_file, opface_output_dir)
         assert len(os.listdir(opface_output_dir)) >0 , "The OpenFace output directory should not be empty: {}".format(opface_output_dir)
         
         # sample images
-        face_dir = os.path.join(opface_output_dir, '{}_aligned'.format(video_name))
+        
+        # face_dir = os.path.join(opface_output_dir, '{}_aligned'.format(video_name))
+        dirs = [f for f in listdir(opface_output_dir) if isdir(join(opface_output_dir, f))]
+        face_dir = os.path.join(opface_output_dir, dirs[0])
+
+        # face_dir = os.path.join(opface_output_dir, '{}_aligned'.format(video_name))
         if self.model_type == 'CNN_RNN':
+            print("THIS IS IT: ", face_dir)
             dataset = Seq_Dataset(face_dir, 
                 seq_len=self.length, transform = self.val_transforms)
             total_frames = len(dataset) * self.length
         else:
+            print("THIS IS IT: ", face_dir)
             dataset = Image_Dataset(face_dir,
                 transform = self.val_transforms)
             total_frames = len(dataset) 
         
+        for file in os.listdir("./examples"):
+            if file.startswith("webcam"):
+                print(file)
         assert total_frames> self.min_frames,"The minimum number of frames should be {}".format(self.min_frames)
         dataloader =  torch.utils.data.DataLoader(
                         dataset,

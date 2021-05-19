@@ -337,7 +337,7 @@ class Emotion_API(object):
 
 
 if __name__ == '__main__':
-	video_file = 'video84/video84.mp4'
+	video_file = './emotion.mp4'
 	name = video_file.split('/')[-1].split('.')[0]
 	save_dir = os.path.dirname(video_file)
 	root_dir = os.path.join(save_dir, name)
