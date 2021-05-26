@@ -64,6 +64,6 @@ for angle in angles:
 x = np.arange(0, len(magnitude))
 (markers, stemlines, baseline) = plt.stem(magnitude, markerfmt=' ')
 plt.setp(stemlines, linestyle="-", color=colors, linewidth=0.5 )
-plt.xticks(np.arange(min(x), max(x)+1, 1), rotation=90)
+plt.xticks(np.arange(min(x), max(x)+1, 30), rotation=90)
 
 plt.show()
