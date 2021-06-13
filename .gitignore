@@ -2,6 +2,7 @@
 api/OpenFace/
 api/pretrained_models/
 api/pytorch-benchmarks/
+api/examples/
 # Compiled source #
 ###################
 *.com

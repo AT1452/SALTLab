@@ -1,0 +1,81 @@
+<script type="text/javascript" src="https://mpld3.github.io/js/d3.v3.min.js"></script>
+<script src="https://mpld3.github.io/js/mpld3.v0.2git.js"></script>
+<style>
+</style>
+<script type="text/javascript">
+  fetch("tester.json")
+  .then(response => response.json())
+  .then(json => {
+    console.log(json);
+    mpld3.draw_figure("colorGraph", json);
+  });
+  fetch("au1.json")
+  .then(response => response.json())
+  .then(json => {
+    console.log(json);
+    mpld3.draw_figure("au1", json);
+  });
+  fetch("au2.json")
+  .then(response => response.json())
+  .then(json => {
+    console.log(json);
+    mpld3.draw_figure("au2", json);
+  });
+  fetch("au4.json")
+  .then(response => response.json())
+  .then(json => {
+    console.log(json);
+    mpld3.draw_figure("au4", json);
+  });
+  fetch("au6.json")
+  .then(response => response.json())
+  .then(json => {
+    console.log(json);
+    mpld3.draw_figure("au6", json);
+  });
+  fetch("au12.json")
+  .then(response => response.json())
+  .then(json => {
+    console.log(json);
+    mpld3.draw_figure("au12", json);
+  });
+  fetch("au15.json")
+  .then(response => response.json())
+  .then(json => {
+    console.log(json);
+    mpld3.draw_figure("au15", json);
+  });
+  fetch("au20.json")
+  .then(response => response.json())
+  .then(json => {
+    console.log(json);
+    mpld3.draw_figure("au20", json);
+  });
+  fetch("au25.json")
+  .then(response => response.json())
+  .then(json => {
+    console.log(json);
+    mpld3.draw_figure("au25", json);
+  });
+</script>
+<div>
+  <div id="colorGraph" style = "display: inline-block;"></div>
+  <img style = "display: inline-block; height: 30vh; width: 30vh; vertical-align: top;" src="./color_wheel_hsl.jpg"/>
+</div>
+<div>
+  <div id="au1" style = "display: inline-block;"></div>
+  <div id="au2" style = "display: inline-block;"></div>
+</div>
+<div>
+  <div id="au4" style = "display: inline-block;"></div>
+  <div id="au6" style = "display: inline-block;"></div>
+</div>
+<div>
+  <div id="au12" style = "display: inline-block;"></div>
+  <div id="au15" style = "display: inline-block;"></div>
+</div>
+<div>
+  <div id="au20" style = "display: inline-block;"></div>
+  <div id="au25" style = "display: inline-block;"></div>
+</div>
+
